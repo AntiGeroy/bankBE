@@ -39,6 +39,9 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(Adresy.class, "UDAJE_O_ADRESACH");
         rowMappers.put(Adresy.class, Adresy.getAdresyMapper());
 
+        classTableMap.put(Dokumenty.class, "UDAJE_O_DOKUMENTECH");
+        rowMappers.put(Dokumenty.class, Dokumenty.getDokumentyMapper());
+
         /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
     }
 
