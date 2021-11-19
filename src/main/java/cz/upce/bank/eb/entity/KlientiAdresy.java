@@ -2,33 +2,30 @@ package cz.upce.bank.eb.entity;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class Klienti {
+public class KlientiAdresy {
 
     private Integer clientId;
+    private Integer addressId;
 
     private String name;
-
     private String surname;
-
     private String phoneNumber;
-
     private String birthNumber;
 
-    public static RowMapper<Klienti> getClientMapper() {
+    public static RowMapper<KlientiAdresy> getClientAddressesMapper() {
         return (rs, rowNum) -> {
-            Klienti client = new Klienti();
-            client.setClientId(rs.getInt("ID"));
-            client.setName(rs.getString("JMENO"));
-            client.setSurname(rs.getString("PRIJMENI"));
-            client.setBirthNumber(rs.getString("RODNE_CISLO"));
-            client.setPhoneNumber(rs.getString("KONTAKTNI_CISLO"));
-            return client;
+            KlientiAdresy clientAddresses = new KlientiAdresy();
+            clientAddresses.setClientId(rs.getInt("KLIENTI_ID"));
+            clientAddresses.setAddressId(rs.getInt("ADRESY_ID")); //вот в этом разница
+            clientAddresses.setName(rs.getString("JMENO"));
+            clientAddresses.setSurname(rs.getString("PRIJMENI"));
+            clientAddresses.setBirthNumber(rs.getString("RODNE_CISLO"));
+            clientAddresses.setPhoneNumber(rs.getString("KONTAKTNI_CISLO"));
+            return clientAddresses;
         };
     }
 
-
-
-    public Klienti() {
+    public KlientiAdresy() {
     }
 
     public Integer getClientId() {
@@ -37,6 +34,14 @@ public class Klienti {
 
     public void setClientId(Integer clientId) {
         this.clientId = clientId;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     public String getName() {

@@ -101,4 +101,5 @@ public class Ucty {
     public void setTimePeriod(String timePeriod) {
         this.timePeriod = timePeriod;
     }
+
 }

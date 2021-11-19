@@ -6,8 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-
 import java.sql.PreparedStatement;
+import java.util.List;
 
 @Service
 public class AdresyDao {
@@ -36,7 +36,7 @@ public class AdresyDao {
         return adresy;
     }
 
-    public void bindAddressToClient(Adresy adresy){
+    public void bindAddressToClient(Adresy adresy) {
         String sql = "INSERT INTO KLIENTI_ADRESY (KLIENTI_ID, ADRESY_ID)" +
                 "VALUES (?, ?)";
 
@@ -47,6 +47,15 @@ public class AdresyDao {
             ps.setInt(2, adresy.getAddressId());
             return ps;
         });
+    }
+
+    public Adresy getAddressById(Integer addressId){
+        String query = "SELECT * FROM ADRESY WHERE ID = ?";
+        List<Adresy> foundAddresses  = jdbcTemplate.query(query, new Object[]{addressId}, Adresy.getAdresyMapper());
+        if (foundAddresses.size() != 1){
+            throw new DaoException("Address with ID " + addressId + " not found");
+        }
+        return foundAddresses.get(0);
     }
 
 }

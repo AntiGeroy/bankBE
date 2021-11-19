@@ -18,4 +18,11 @@ public class AdresyController {
     public Adresy addNewAdrress(@RequestBody Adresy newAddress){
         return adresyService.createNewAddress(newAddress);
     }
+
+    @GetMapping("/{addressId}")
+    public @ResponseBody
+    Adresy getAddress(@PathVariable("addressId") Integer addressId){
+        return adresyService.getAddressById(addressId);
+    }
+
 }

@@ -19,6 +19,8 @@ public class AdresyService {
         return adresy;
     }
 
-
+    public Adresy getAddressById(Integer addressId){
+        return adresyDao.getAddressById(addressId);
+    }
 
 }
