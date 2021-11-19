@@ -1,6 +1,5 @@
 package cz.upce.bank.eb.controller;
 
-
 import cz.upce.bank.eb.entity.Klienti;
 import cz.upce.bank.eb.service.KlientiService;
 import org.springframework.beans.factory.annotation.Autowired;

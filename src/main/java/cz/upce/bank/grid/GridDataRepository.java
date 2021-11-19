@@ -37,7 +37,10 @@ public class GridDataRepository implements GridDataDao {
         rowMappers.put(Karty.class, getKartyMapper());
 
         classTableMap.put(Adresy.class, "UDAJE_O_ADRESACH");
-        rowMappers.put(Adresy.class, Adresy.getAdresyMapper());
+        rowMappers.put(Adresy.class, Adresy.getAdresyViewMapper());
+
+        classTableMap.put(KlientiAdresy.class, "UDAJE_O_ADRESACH_A_KLIENTECH");
+        rowMappers.put(KlientiAdresy.class, KlientiAdresy.getClientAddressesMapper());
 
         /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
     }

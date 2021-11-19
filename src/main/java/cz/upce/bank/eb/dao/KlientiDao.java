@@ -1,6 +1,5 @@
 package cz.upce.bank.eb.dao;
 
-
 import cz.upce.bank.eb.entity.Klienti;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

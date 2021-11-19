@@ -21,6 +21,20 @@ public class Adresy {
     public static RowMapper<Adresy> getAdresyMapper(){
         return (rs, rowNum) -> {
             Adresy adresy = new Adresy();
+            adresy.setAddressId(rs.getInt("ID"));
+            adresy.setHouseNumber(rs.getString("CISLO_POPISNE"));
+            adresy.setStreet(rs.getString("ULICE"));
+            adresy.setTown(rs.getString("MESTO"));
+            adresy.setPostalCode(rs.getString("PSC"));
+            adresy.setCountryCode(rs.getString("KOD_ZEME"));
+            return adresy;
+        };
+    }
+
+
+    public static RowMapper<Adresy> getAdresyViewMapper(){
+        return (rs, rowNum) -> {
+            Adresy adresy = new Adresy();
             adresy.setAddressId(rs.getInt("ADRESA_ID"));
             adresy.setClientId(rs.getInt("KLIENT_ID"));
             adresy.setHouseNumber(rs.getString("CISLO_POPISNE"));
