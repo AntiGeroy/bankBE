@@ -8,6 +8,11 @@ public class Ucty {
     private int clientId;
     private String accountNumber;
     private String state;
+    private String accountType;
+    private double remainder;
+    private Double limit;
+    private Double rate;
+    private String timePeriod;
 
     public static RowMapper<Ucty> getUctyMapper() {
         return (rs, rowNum) -> {
@@ -15,7 +20,12 @@ public class Ucty {
             ucty.setAccountId(rs.getInt("UCET_ID"));
             ucty.setClientId(rs.getInt("KLIENT_ID"));
             ucty.setAccountNumber(rs.getString("CISLO_UCTU"));
-            ucty.setState(rs.getString("POPIS"));
+            ucty.setState(rs.getString("STAV_POPIS"));
+            ucty.setRemainder(rs.getDouble("ZUSTATEK"));
+            ucty.setAccountType(rs.getString("TYP_UCTU"));
+            ucty.setLimit(rs.getDouble("HRANICE_CERPANI"));
+            ucty.setRate(rs.getDouble("UROKOVA_SAZBA"));
+            ucty.setTimePeriod(rs.getString("OBDOBI_POPIS"));
             return ucty;
         };
     }
@@ -50,5 +60,45 @@ public class Ucty {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public double getRemainder() {
+        return remainder;
+    }
+
+    public void setRemainder(double remainder) {
+        this.remainder = remainder;
+    }
+
+    public Double getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Double limit) {
+        this.limit = limit;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public String getTimePeriod() {
+        return timePeriod;
+    }
+
+    public void setTimePeriod(String timePeriod) {
+        this.timePeriod = timePeriod;
     }
 }

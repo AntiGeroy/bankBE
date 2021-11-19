@@ -17,9 +17,22 @@ public class UctyGrid {
                 .gridName("Accounts")
                 .unlimitedRowsCount()
                 .column("accountNumber").tableColumn("CISLO_UCTU").label("Číslo účtu").contentType(CONTENTTYPE.TEXT).end()
+                .column("remainder").tableColumn("ZUSTATEK").label("Aktuální zůstatek").contentType(CONTENTTYPE.TEXT).end()
+                .virtualColumn("accountType").fn(ucty -> {
+                    String type = ucty.getAccountType();
+                    if (type.equals("B")){
+                        return "Běžný";
+                    }
+                    else if (type.equals("U")){
+                        return "Úvěrový";
+                    }
+                    else {
+                        return "Spořící";
+                    }
+                }).label("Typ účtu").end()
                 .hiddenColumn("accountId").tableColumn("UCET_ID").contentType(CONTENTTYPE.TEXT).end()
                 .hiddenColumn("clientId").tableColumn("KLIENT_ID").contentType(CONTENTTYPE.TEXT).end()
-                .column("state").tableColumn("POPIS").contentType(CONTENTTYPE.TEXT).end()
+                .column("state").tableColumn("POPIS").label("Stav účtu").contentType(CONTENTTYPE.TEXT).end()
                 .build();
     }
 }
