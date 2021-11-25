@@ -3,6 +3,7 @@ package cz.upce.bank.eb.service;
 
 import cz.upce.bank.eb.dao.KlientiDao;
 import cz.upce.bank.eb.entity.Klienti;
+import cz.upce.bank.eb.entity.KlientiAdresy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +22,11 @@ public class KlientiService {
         return klientiDao.updateClient(clientId, clientData);
     }
 
+    public KlientiAdresy[] getClientsOnAddress(Integer addressId) {
+        return klientiDao.getClientsOnAddress(addressId);
+    }
+
+    public KlientiAdresy updateClientAddressState(KlientiAdresy clientAddress) {
+        return klientiDao.updateClientAddressState(clientAddress);
+    }
 }
