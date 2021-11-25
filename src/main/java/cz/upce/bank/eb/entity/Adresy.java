@@ -18,6 +18,8 @@ public class Adresy {
 
     private String countryCode;
 
+    private Integer state;
+
     public static RowMapper<Adresy> getAdresyMapper(){
         return (rs, rowNum) -> {
             Adresy adresy = new Adresy();
@@ -31,7 +33,6 @@ public class Adresy {
         };
     }
 
-
     public static RowMapper<Adresy> getAdresyViewMapper(){
         return (rs, rowNum) -> {
             Adresy adresy = new Adresy();
@@ -44,6 +45,24 @@ public class Adresy {
             adresy.setCountryCode(rs.getString("KOD_ZEME"));
             return adresy;
         };
+    }
+
+    public static RowMapper<Adresy> getKlientyAdresyMapper() {
+        return (rs, rowNum) -> {
+            Adresy adresy = new Adresy();
+            adresy.setAddressId(rs.getInt("ADRESY_ID"));
+            adresy.setClientId(rs.getInt("KLIENTI_ID"));
+            adresy.setState(rs.getInt("AKTIVNI"));
+            return adresy;
+        };
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public int getAddressId() {
@@ -101,4 +120,6 @@ public class Adresy {
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
+
+
 }

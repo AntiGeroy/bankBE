@@ -26,8 +26,6 @@ public class Klienti {
         };
     }
 
-
-
     public Klienti() {
     }
 

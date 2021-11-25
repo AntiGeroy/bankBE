@@ -1,6 +1,7 @@
 package cz.upce.bank.eb.controller;
 
 import cz.upce.bank.eb.entity.Adresy;
+import cz.upce.bank.eb.entity.Klienti;
 import cz.upce.bank.eb.service.AdresyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,12 @@ public class AdresyController {
     public @ResponseBody
     Adresy getAddress(@PathVariable("addressId") Integer addressId){
         return adresyService.getAddressById(addressId);
+    }
+
+    @PutMapping("/{addressId}")
+    public @ResponseBody
+    Adresy updateAddress(@PathVariable("addressId") Integer addressId, @RequestBody Adresy addressData){
+        return adresyService.updateAddress(addressId, addressData);
     }
 
 }

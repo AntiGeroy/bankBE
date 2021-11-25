@@ -11,6 +11,7 @@ public class KlientiAdresy {
     private String surname;
     private String phoneNumber;
     private String birthNumber;
+    private Integer active;
 
     public static RowMapper<KlientiAdresy> getClientAddressesMapper() {
         return (rs, rowNum) -> {
@@ -25,7 +26,28 @@ public class KlientiAdresy {
         };
     }
 
+    public static RowMapper<KlientiAdresy> getClientAddressStateMapper() {
+        return (rs, rowNum) -> {
+            KlientiAdresy client = new KlientiAdresy();
+            client.setClientId(rs.getInt("KLIENTI_ID"));
+            client.setAddressId(rs.getInt("ADRESY_ID")); //вот в этом разница
+            client.setName(rs.getString("JMENO"));
+            client.setSurname(rs.getString("PRIJMENI"));
+            client.setBirthNumber(rs.getString("RODNE_CISLO"));
+            client.setActive(rs.getInt("AKTIVNI"));
+            return client;
+        };
+    }
+
     public KlientiAdresy() {
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
     public Integer getClientId() {
