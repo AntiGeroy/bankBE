@@ -34,7 +34,7 @@ public class GridDataRepository implements GridDataDao {
         rowMappers.put(Ucty.class, Ucty.getUctyMapper());
 
         classTableMap.put(Karty.class, "UDAJE_O_KARTACH");
-        rowMappers.put(Karty.class, getKartyMapper());
+        rowMappers.put(Karty.class, Karty.getKartyMapper());
 
         classTableMap.put(Adresy.class, "UDAJE_O_ADRESACH");
         rowMappers.put(Adresy.class, Adresy.getAdresyViewMapper());
@@ -44,6 +44,12 @@ public class GridDataRepository implements GridDataDao {
 
         classTableMap.put(Dokumenty.class, "UDAJE_O_DOKUMENTECH");
         rowMappers.put(Dokumenty.class, Dokumenty.getDokumentyMapper());
+
+        classTableMap.put(Transakce.class, "UDAJE_O_TRANSAKCICH");
+        rowMappers.put(Transakce.class, Transakce.getTransakceMapper());
+
+        classTableMap.put(Uvery.class, "UDAJE_O_UVERECH");
+        rowMappers.put(Uvery.class, Uvery.getUveryMapper());
 
         /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
     }
@@ -159,18 +165,7 @@ public class GridDataRepository implements GridDataDao {
         };
     }
 
-    private RowMapper<Karty> getKartyMapper(){
-        return (rs, rowNum) -> {
-            Karty karty = new Karty();
-            karty.setCardId(rs.getInt("ID"));
-            karty.setCardNumber(rs.getInt("CISLO_KARTY"));
-            karty.setIssueDate(rs.getDate("DATUM_VYDANI").toLocalDate());
-            karty.setExpirationDate(rs.getDate("DATUM_PLATNOSTI").toLocalDate());
-            karty.setOwnerName(rs.getString("JMENO"));
-            karty.setOwnerSurname(rs.getString("PRIJMENI"));
-            return karty;
-        };
-    }
+
 
 
 }

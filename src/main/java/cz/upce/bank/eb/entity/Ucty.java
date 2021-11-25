@@ -13,6 +13,8 @@ public class Ucty {
     private Double limit;
     private Double rate;
     private String timePeriod;
+    private String ownerName;
+    private String ownerSurname;
 
     public static RowMapper<Ucty> getUctyMapper() {
         return (rs, rowNum) -> {
@@ -26,6 +28,8 @@ public class Ucty {
             ucty.setLimit(rs.getDouble("HRANICE_CERPANI"));
             ucty.setRate(rs.getDouble("UROKOVA_SAZBA"));
             ucty.setTimePeriod(rs.getString("OBDOBI_POPIS"));
+            ucty.setOwnerName(rs.getString("JMENO"));
+            ucty.setOwnerSurname(rs.getString("PRIJMENI"));
             return ucty;
         };
     }
@@ -102,4 +106,19 @@ public class Ucty {
         this.timePeriod = timePeriod;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerSurname() {
+        return ownerSurname;
+    }
+
+    public void setOwnerSurname(String ownerSurname) {
+        this.ownerSurname = ownerSurname;
+    }
 }
