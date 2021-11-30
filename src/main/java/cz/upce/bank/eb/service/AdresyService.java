@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
+
 @Service
 public class AdresyService {
 
@@ -14,8 +16,8 @@ public class AdresyService {
     private AdresyDao adresyDao;
 
     @Transactional(rollbackFor = Exception.class)
-    public Adresy createNewAddress(Adresy adresy){
-        Adresy adresyCheck = adresyDao.getAddressByFields(adresy);
+    public Adresy createNewAddress(Adresy adresy) throws SQLException {
+     /*   Adresy adresyCheck = adresyDao.getAddressByFields(adresy);
 
         if(adresyCheck == null){
             adresy = adresyDao.createNewAddress(adresy);
@@ -25,7 +27,9 @@ public class AdresyService {
 
         if(!adresyDao.checkIfAddressIsBoundToClient(adresy)){
             adresyDao.bindAddressToClient(adresy);
-        }
+        }*/
+        int addId = adresyDao.createAddressAndBindToClient(adresy);
+        adresy.setClientId(addId);
         return adresy;
     }
 
