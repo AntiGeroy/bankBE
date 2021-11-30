@@ -26,7 +26,7 @@ public class GridDataRepository implements GridDataDao {
 
     @PostConstruct
     public void init() {
-        /*classTableMap.put(EbUser.class, "EB_USER");*/
+
         classTableMap.put(Klienti.class, "KLIENTI");
         rowMappers.put(Klienti.class, Klienti.getClientMapper());
 
@@ -54,7 +54,6 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(User.class, "UDAJE_O_UZIVATELICH");
         rowMappers.put(User.class, User.getUserViewMapper());
 
-        /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
     }
 
     @Override
@@ -156,19 +155,5 @@ public class GridDataRepository implements GridDataDao {
         }
         throw new UnsupportedOperationException("Pofixi menya");
     }
-
-    private RowMapper<EbUser> getEbUserRowMapper() {
-        return (rs, rowNum) -> {
-            EbUser ebUser = new EbUser();
-            ebUser.setFirstName(rs.getString("FIRST_NAME"));
-            ebUser.setLastName(rs.getString("LAST_NAME"));
-            ebUser.setUserId(rs.getInt("USER_ID"));
-            ebUser.setUsername(rs.getString("USER_NAME"));
-            return ebUser;
-        };
-    }
-
-
-
 
 }

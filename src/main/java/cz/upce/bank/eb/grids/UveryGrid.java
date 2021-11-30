@@ -1,11 +1,9 @@
 package cz.upce.bank.eb.grids;
 
-import cz.upce.bank.eb.entity.Transakce;
 import cz.upce.bank.eb.entity.Uvery;
 import mk.gridlib.builders.GridConfigBuilder;
 import mk.gridlib.domain.grid.GridConfig;
 import mk.gridlib.enums.CONTENTTYPE;
-import mk.gridlib.enums.SORTORDER;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,5 +27,4 @@ public class UveryGrid {
                 .column("typeInfo").tableColumn("NAZEV").label("Typ úvěru").contentType(CONTENTTYPE.TEXT).end()
                 .build();
     }
-
 }

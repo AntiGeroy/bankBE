@@ -30,13 +30,6 @@ public class Karty {
         };
     }
 
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
 
     public int getAccountId() {
         return accountId;
@@ -45,6 +38,24 @@ public class Karty {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    public int getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
+
 
     public int getCardNumber() {
         return cardNumber;
@@ -84,13 +95,5 @@ public class Karty {
 
     public void setOwnerSurname(String ownerSurname) {
         this.ownerSurname = ownerSurname;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 }

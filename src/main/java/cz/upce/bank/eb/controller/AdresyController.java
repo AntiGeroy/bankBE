@@ -6,6 +6,8 @@ import cz.upce.bank.eb.service.AdresyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @RestController
 @RequestMapping("/api/adresy")
 @CrossOrigin(origins = "*")
@@ -16,7 +18,7 @@ public class AdresyController {
 
 
     @PostMapping(value = "/novy")
-    public Adresy addNewAdrress(@RequestBody Adresy newAddress){
+    public Adresy addNewAdrress(@RequestBody Adresy newAddress) throws SQLException {
         return adresyService.createNewAddress(newAddress);
     }
 

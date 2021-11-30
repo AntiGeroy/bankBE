@@ -48,7 +48,6 @@ public class KlientiDao {
         return modifiedClientInfo;
     }
 
-
     public KlientiAdresy updateClientAddressState(KlientiAdresy clientAddress) {
         String query = "UPDATE KLIENTI_ADRESY SET AKTIVNI = ? WHERE KLIENTI_ID = ? AND ADRESY_ID = ?";
         jdbcTemplate.update(query,new Object[] {clientAddress.getActive(), clientAddress.getClientId(), clientAddress.getAddressId()});

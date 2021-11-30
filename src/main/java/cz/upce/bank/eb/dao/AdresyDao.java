@@ -1,14 +1,17 @@
 package cz.upce.bank.eb.dao;
 
 import cz.upce.bank.eb.entity.Adresy;
+import oracle.jdbc.OracleTypes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.List;
 
 @Service
@@ -16,6 +19,23 @@ public class AdresyDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public int createAddressAndBindToClient(Adresy adresy) throws SQLException {
+
+        Connection connection = jdbcTemplate.getDataSource().getConnection();
+        CallableStatement proc = connection.prepareCall("{ ? = call VLOZ_ADRESU(?,?,?,?,?,?) }");
+        proc.registerOutParameter(1, OracleTypes.INTEGER);
+        proc.setInt(2, adresy.getClientId());
+        proc.setString(3, adresy.getHouseNumber());
+        proc.setString(4, adresy.getStreet());
+        proc.setString(5, adresy.getTown());
+        proc.setString(6, adresy.getPostalCode());
+        proc.setString(7, adresy.getCountryCode());
+        proc.execute();
+        int result = proc.getInt(1);
+        proc.close();
+        return result;
+    }
 
     public Adresy createNewAddress(Adresy adresy){
         String sql = "INSERT INTO ADRESY (CISLO_POPISNE, ULICE, MESTO, PSC, KOD_ZEME)" +
