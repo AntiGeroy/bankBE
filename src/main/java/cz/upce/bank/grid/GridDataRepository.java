@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+/*<<<<<<< Updated upstream
 package cz.upce.bank.grid;
 
 import cz.upce.bank.eb.entity.*;
@@ -27,7 +27,7 @@ public class GridDataRepository implements GridDataDao {
 
     @PostConstruct
     public void init() {
-        /*classTableMap.put(EbUser.class, "EB_USER");*/
+        *//*classTableMap.put(EbUser.class, "EB_USER");*//*
         classTableMap.put(Klienti.class, "KLIENTI");
         rowMappers.put(Klienti.class, Klienti.getClientMapper());
 
@@ -46,7 +46,7 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(Dokumenty.class, "UDAJE_O_DOKUMENTECH");
         rowMappers.put(Dokumenty.class, Dokumenty.getDokumentyMapper());
 
-        /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
+        *//*rowMappers.put(EbUser.class, getEbUserRowMapper());*//*
     }
 
     @Override
@@ -112,7 +112,7 @@ public class GridDataRepository implements GridDataDao {
         sql.append(" OFFSET ").append(offset).append(" ROWS ").append(" FETCH NEXT ").append(count).append(" ROWS ONLY");
 
         // H2 Version
-        /*sql.append(" limit  ").append(count).append(" offset ").append(offset);*/
+        *//*sql.append(" limit  ").append(count).append(" offset ").append(offset);*//*
 
         List<Object> params = new ArrayList<>(gridSqlparams);
         params.addAll(userSqlparams);
@@ -160,7 +160,7 @@ public class GridDataRepository implements GridDataDao {
         };
     }
 
-    private RowMapper<Karty> getKartyMapper(){
+ *//*   private RowMapper<Karty> getKartyMapper(){
         return (rs, rowNum) -> {
             Karty karty = new Karty();
             karty.setCardId(rs.getInt("ID"));
@@ -171,11 +171,10 @@ public class GridDataRepository implements GridDataDao {
             karty.setOwnerSurname(rs.getString("PRIJMENI"));
             return karty;
         };
-    }
+    }*//*
 
 
-}
-=======
+}*/
 package cz.upce.bank.grid;
 
 import cz.upce.bank.eb.entity.*;
@@ -350,4 +349,3 @@ public class GridDataRepository implements GridDataDao {
 
 
 }
->>>>>>> Stashed changes
