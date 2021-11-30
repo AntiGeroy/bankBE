@@ -54,6 +54,9 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(User.class, "UDAJE_O_UZIVATELICH");
         rowMappers.put(User.class, User.getUserViewMapper());
 
+        classTableMap.put(Logovani.class, "DATABAZE_LOG");
+        rowMappers.put(Logovani.class, Logovani.getLogovaniMapper());
+
     }
 
     @Override
