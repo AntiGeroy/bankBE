@@ -51,6 +51,9 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(Uvery.class, "UDAJE_O_UVERECH");
         rowMappers.put(Uvery.class, Uvery.getUveryMapper());
 
+        classTableMap.put(User.class, "UDAJE_O_UZIVATELICH");
+        rowMappers.put(User.class, User.getUserViewMapper());
+
         /*rowMappers.put(EbUser.class, getEbUserRowMapper());*/
     }
 
@@ -101,7 +104,7 @@ public class GridDataRepository implements GridDataDao {
                 sql.append(" WHERE ");
             }
             sql.append(" (");
-            String whereString = String.join(" OR ", userWhereParams);
+            String whereString = String.join(" AND ", userWhereParams);
             sql.append(whereString);
             sql.append(") ");
         }
