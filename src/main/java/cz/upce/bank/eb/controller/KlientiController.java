@@ -3,6 +3,7 @@ package cz.upce.bank.eb.controller;
 import cz.upce.bank.eb.entity.Klienti;
 import cz.upce.bank.eb.entity.User;
 import cz.upce.bank.eb.entity.UserRole;
+import cz.upce.bank.eb.entity.KlientiAdresy;
 import cz.upce.bank.eb.service.KlientiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,11 +32,21 @@ public class KlientiController {
         }
     }
 
+    @GetMapping("/batch/{addressId}")
+    public @ResponseBody
+    KlientiAdresy[] getClientsOnAddress(@PathVariable("addressId") Integer addressId) {
+        return klientiService.getClientsOnAddress(addressId);
+    }
+
+    @PutMapping("/addressState")
+    public @ResponseBody
+    KlientiAdresy updateClientAddressState(@RequestBody KlientiAdresy clientAddress){
+        return klientiService.updateClientAddressState(clientAddress);
+    }
+
     @PutMapping("/{clientId}")
     public @ResponseBody
     Klienti updateClient(@PathVariable("clientId") Integer clientId, @RequestBody Klienti clientData){
         return klientiService.updateClient(clientId, clientData);
     }
-
-
 }

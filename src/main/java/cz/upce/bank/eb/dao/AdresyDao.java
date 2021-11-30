@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -49,6 +51,18 @@ public class AdresyDao {
         });
     }
 
+    public Adresy getAddressByFields(Adresy adresy){
+        String query = "SELECT * FROM ADRESY WHERE CISLO_POPISNE = ? AND ULICE = ? AND MESTO = ? AND PSC = ? AND KOD_ZEME = ?";
+        String cp = adresy.getHouseNumber();
+        String ul = adresy.getStreet();
+        String me = adresy.getTown();
+        String ps = adresy.getPostalCode();
+        String kz = adresy.getCountryCode();
+        List<Adresy> foundAddresses = jdbcTemplate.query(query, new Object[]{cp, ul, me, ps, kz }, Adresy.getAdresyMapper());
+        if(foundAddresses.size() != 1) return null;
+        return foundAddresses.get(0);
+    }
+
     public Adresy getAddressById(Integer addressId){
         String query = "SELECT * FROM ADRESY WHERE ID = ?";
         List<Adresy> foundAddresses  = jdbcTemplate.query(query, new Object[]{addressId}, Adresy.getAdresyMapper());
@@ -58,4 +72,21 @@ public class AdresyDao {
         return foundAddresses.get(0);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public Adresy updateAddress(Integer addressId, Adresy modifiedAddressData) {
+        String query = "UPDATE ADRESY SET CISLO_POPISNE = ?, ULICE = ?, MESTO = ?, PSC = ?, KOD_ZEME = ?\n" +
+                "WHERE ID = ?";
+        jdbcTemplate.update(query,new Object[] {modifiedAddressData.getHouseNumber(), modifiedAddressData.getStreet(),
+        modifiedAddressData.getTown(), modifiedAddressData.getPostalCode(), modifiedAddressData.getCountryCode(), modifiedAddressData.getAddressId()});
+        return modifiedAddressData;
+    }
+
+    public boolean checkIfAddressIsBoundToClient(Adresy adresy) {
+        String query = "SELECT * FROM KLIENTI_ADRESY WHERE KLIENTI_ID = ? AND ADRESY_ID = ?";
+        List<Adresy> foundBounds = jdbcTemplate.query(query, new Object[]{adresy.getClientId(), adresy.getAddressId()}, adresy.getKlientyAdresyMapper());
+        if(foundBounds.size() < 1) return false;
+        else if(foundBounds.size() > 1) throw new DaoException("Found multiple bounds of address with id " + adresy.getAddressId() +
+                "to client with id " + adresy.getClientId());
+        return true;
+    }
 }
