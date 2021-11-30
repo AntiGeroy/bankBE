@@ -25,4 +25,18 @@ public class KartyGrid {
                 .sort("name", SORTORDER.ASC)
                 .build();
     }
+
+    @Bean
+    public GridConfig<Karty> getAccountCardInfo() {
+        return GridConfigBuilder.createGrid(Karty.class, "cardId")
+                .gridName("AccountCards")
+                .unlimitedRowsCount()
+                .hiddenColumn("cardId").tableColumn("ID").contentType(CONTENTTYPE.TEXT).end()
+                .hiddenColumn("accountId").tableColumn("UCET_ID").contentType(CONTENTTYPE.TEXT).end()
+                .column("cardNumber").tableColumn("CISLO_KARTY").label("Číslo karty").contentType(CONTENTTYPE.TEXT).end()
+                .column("issueDate").tableColumn("DATUM_VYDANI").label("Datum vydání").contentType(CONTENTTYPE.TEXT).end()
+                .column("expirationDate").tableColumn("DATUM_PLATNOSTI").label("Datum platnosti").contentType(CONTENTTYPE.TEXT).end()
+                .column("state").tableColumn("POPIS").label("Stav karty").contentType(CONTENTTYPE.TEXT).end()
+                .build();
+    }
 }
