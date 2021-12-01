@@ -6,12 +6,24 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class KartyDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public void newCard(Integer accountId){
+        String query = "INSERT INTO KARTY (CISLO_KARTY, DATUM_VYDANI, DATUM_PLATNOSTI, BEZPECNOSTNI_KOD, UCET_ID, STAV_KARTY_ID) " +
+                        "VALUES (S_KARTY_CISLO.NEXTVAL, SYSTIMESTAMP, add_months(SYSTIMESTAMP, 60), ?, ?, 1)";
+
+        Random random = new Random();
+        int securityCode = random.nextInt(900);
+
+
+        jdbcTemplate.update(query, new Object[]{securityCode, accountId});
+    }
 
     public Karty getCardById(Integer cardId){
         String query = "SELECT * FROM UDAJE_O_KARTACH WHERE ID = ?";

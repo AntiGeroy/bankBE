@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Karty {
 
     private int cardId;
-    private int cardNumber;
+    private String cardNumber;
     private int accountId;
     private LocalDate issueDate;
     private LocalDate expirationDate;
@@ -19,7 +19,7 @@ public class Karty {
         return (rs, rowNum) -> {
             Karty karty = new Karty();
             karty.setCardId(rs.getInt("ID"));
-            karty.setCardNumber(rs.getInt("CISLO_KARTY"));
+            karty.setCardNumber(String.valueOf(rs.getLong("CISLO_KARTY")));
             karty.setIssueDate(rs.getDate("DATUM_VYDANI").toLocalDate());
             karty.setExpirationDate(rs.getDate("DATUM_PLATNOSTI").toLocalDate());
             karty.setOwnerName(rs.getString("JMENO"));
@@ -57,11 +57,11 @@ public class Karty {
     }
 
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

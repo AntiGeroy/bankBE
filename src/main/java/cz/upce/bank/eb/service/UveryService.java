@@ -1,6 +1,7 @@
 package cz.upce.bank.eb.service;
 
 import cz.upce.bank.eb.dao.UveryDao;
+import cz.upce.bank.eb.entity.NewCreditRequest;
 import cz.upce.bank.eb.entity.Uvery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,10 @@ public class UveryService {
     
     @Autowired
     private UveryDao uveryDao;
+
+    public void newCredit(NewCreditRequest request){
+        uveryDao.newCredit(request);
+    }
 
     public Uvery getUver(Integer creditId) {
         return uveryDao.getUver(creditId);

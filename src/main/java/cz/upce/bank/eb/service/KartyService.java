@@ -15,6 +15,10 @@ public class KartyService {
         return kartyDao.getCardById(cardId);
     }
 
+    public void newCard(Integer accountId){
+        kartyDao.newCard(accountId);
+    }
+
     public void freezeCard(Integer cardId) {
         kartyDao.freezeCard(cardId);
     }

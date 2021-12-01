@@ -1,5 +1,6 @@
 package cz.upce.bank.eb.controller;
 
+import cz.upce.bank.eb.entity.NewCreditRequest;
 import cz.upce.bank.eb.entity.Uvery;
 import cz.upce.bank.eb.service.UveryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class UveryController {
     public @ResponseBody
     Uvery updateUver(@PathVariable("creditId") Integer uverId, @RequestBody Uvery uverData){
         return uveryService.updateUver(uverId, uverData);
+    }
+
+    @PostMapping("/novy")
+    public void newCredit(@RequestBody NewCreditRequest request){
+        uveryService.newCredit(request);
     }
 }

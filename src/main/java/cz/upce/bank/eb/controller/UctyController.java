@@ -35,4 +35,9 @@ public class UctyController {
         uctyService.unfreezeAccount(request.getAccountId());
     }
 
+    @PostMapping(value = "/terminovat", consumes = "application/json")
+    public void terminateAccount(@RequestBody AccountRequest request) throws Exception{
+        uctyService.terminateAccount(request.getAccountId());
+    }
+
 }

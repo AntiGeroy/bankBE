@@ -20,6 +20,10 @@ public class UctyService {
         return foundAccount;
     }
 
+    public void terminateAccount(Integer accountId) throws Exception{
+        uctyDao.terminateAccount(accountId);
+    }
+
     public void freezeAccount(Integer accountId) throws Exception{
         uctyDao.freezeAccount(accountId);
     }

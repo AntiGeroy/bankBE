@@ -34,6 +34,13 @@ public class UctyDao {
         callableStatement.executeUpdate();
     }
 
+    public void terminateAccount(Integer accountId) throws Exception{
+        Connection connection = jdbcTemplate.getDataSource().getConnection();
+        CallableStatement callableStatement = connection.prepareCall("{call TERMINUJ_UCET(?)}");
+        callableStatement.setInt(1, accountId);
+        callableStatement.executeUpdate();
+    }
+
     public void unfreezeAccount(Integer accountId) throws Exception{
         Connection connection = jdbcTemplate.getDataSource().getConnection();
         CallableStatement callableStatement = connection.prepareCall("{call ROZMRAZ_UCET(?)}");

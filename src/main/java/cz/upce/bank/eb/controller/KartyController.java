@@ -2,6 +2,7 @@ package cz.upce.bank.eb.controller;
 
 import cz.upce.bank.eb.entity.CardRequest;
 import cz.upce.bank.eb.entity.Karty;
+import cz.upce.bank.eb.entity.NewCardRequest;
 import cz.upce.bank.eb.service.KartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,11 @@ public class KartyController {
 
     @Autowired
     private KartyService kartyService;
+
+    @PostMapping("/nova")
+    public void newCard(@RequestBody NewCardRequest request){
+        kartyService.newCard(request.getAccountId());
+    }
 
     @GetMapping("/{cardId}")
     public @ResponseBody

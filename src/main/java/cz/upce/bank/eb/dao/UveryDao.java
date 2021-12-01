@@ -1,5 +1,6 @@
 package cz.upce.bank.eb.dao;
 
+import cz.upce.bank.eb.entity.NewCreditRequest;
 import cz.upce.bank.eb.entity.Uvery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +14,12 @@ public class UveryDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public void newCredit(NewCreditRequest request) {
+        String query = "INSERT INTO UVERY(DATUM_POSKYTNUTI, ZBYVAJICI_CASTKA, TYP_UVERU_ID, UCTY_ID) " +
+                        "VALUES(SYSDATE, ?, ?, ?)";
+        jdbcTemplate.update(query, new Object[] {request.getAmount(), request.getTypeId(), request.getAccountId()});
+    }
 
     public Uvery getUver(Integer creditId) {
         String query = "SELECT * FROM UDAJE_O_UVERECH WHERE ID = ?";
