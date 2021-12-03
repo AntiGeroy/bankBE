@@ -27,4 +27,5 @@ public class UveryGrid {
                 .column("typeInfo").tableColumn("NAZEV").label("Typ úvěru").contentType(CONTENTTYPE.TEXT).end()
                 .build();
     }
+
 }

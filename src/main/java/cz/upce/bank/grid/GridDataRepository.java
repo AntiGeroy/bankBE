@@ -1,6 +1,7 @@
 package cz.upce.bank.grid;
 
 import cz.upce.bank.eb.entity.*;
+import cz.upce.bank.eb.grids.ZaplaceneUveryGrid;
 import mk.gridlib.dao.GridDataDao;
 import mk.gridlib.domain.conditions.SearchCondition;
 import mk.gridlib.domain.conditions.SortCondition;
@@ -51,11 +52,17 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(Uvery.class, "UDAJE_O_UVERECH");
         rowMappers.put(Uvery.class, Uvery.getUveryMapper());
 
+        classTableMap.put(ZaplaceneUvery.class, "UVERY_ZAPLACENE");
+        rowMappers.put(ZaplaceneUvery.class, ZaplaceneUvery.getZaplaceneUveryMapper());
+
         classTableMap.put(User.class, "UDAJE_O_UZIVATELICH");
         rowMappers.put(User.class, User.getUserViewMapper());
 
         classTableMap.put(Logovani.class, "DATABAZE_LOG");
         rowMappers.put(Logovani.class, Logovani.getLogovaniMapper());
+
+        classTableMap.put(DatabaseObject.class, "ALL_USED_OBJECTS");
+        rowMappers.put(DatabaseObject.class, DatabaseObject.getDatabaseObjectMapper());
 
     }
 

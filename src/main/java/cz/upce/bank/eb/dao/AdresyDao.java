@@ -21,7 +21,6 @@ public class AdresyDao {
     private JdbcTemplate jdbcTemplate;
 
     public int createAddressAndBindToClient(Adresy adresy) throws SQLException {
-
         Connection connection = jdbcTemplate.getDataSource().getConnection();
         CallableStatement proc = connection.prepareCall("{ ? = call VLOZ_ADRESU(?,?,?,?,?,?) }");
         proc.registerOutParameter(1, OracleTypes.INTEGER);

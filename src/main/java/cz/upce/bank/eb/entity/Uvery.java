@@ -30,6 +30,7 @@ public class Uvery {
         };
     }
 
+
     public int getCreditId() {
         return creditId;
     }
