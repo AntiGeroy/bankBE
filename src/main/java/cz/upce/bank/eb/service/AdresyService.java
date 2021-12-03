@@ -17,17 +17,6 @@ public class AdresyService {
 
     @Transactional(rollbackFor = Exception.class)
     public Adresy createNewAddress(Adresy adresy) throws SQLException {
-     /*   Adresy adresyCheck = adresyDao.getAddressByFields(adresy);
-
-        if(adresyCheck == null){
-            adresy = adresyDao.createNewAddress(adresy);
-        } else {
-            adresy.setAddressId(adresyCheck.getAddressId());
-        }
-
-        if(!adresyDao.checkIfAddressIsBoundToClient(adresy)){
-            adresyDao.bindAddressToClient(adresy);
-        }*/
         int addId = adresyDao.createAddressAndBindToClient(adresy);
         adresy.setClientId(addId);
         return adresy;
