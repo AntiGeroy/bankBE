@@ -1,5 +1,9 @@
 package cz.upce.bank.eb.service;
 
+/**
+ * Výjimka při provádění logiky aplikace
+ */
+
 public class ServiceException extends RuntimeException {
 
     private String message;

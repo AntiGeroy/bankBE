@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * Třída slouží pro nastavení gridů
+ */
+
 @Service
 public class PostConfigurationService {
 
@@ -20,10 +24,18 @@ public class PostConfigurationService {
     @Autowired
     private ApplicationContext appContext;
 
+    /**
+     * Při startu aplikace
+     */
+
     @EventListener(ApplicationReadyEvent.class)
     public void onAppReady() {
         initGrids();
     }
+
+    /**
+     * Inicializace
+     */
 
     private void initGrids() {
         Map<String, GridConfig> grids =  appContext.getBeansOfType(GridConfig.class);

@@ -8,11 +8,21 @@ import org.springframework.stereotype.Service;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
+/**
+ * Třída má na starosti přístup k databázi pro TransakceServis
+ */
+
 @Service
 public class TransakceDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Volání uložene procedury PROVED_TRANSAKCI pro zadání nové transakce
+     * @param request
+     * @throws Exception
+     */
 
     public void addNewTransaction(NewTransactionRequest request) throws Exception{
         Connection connection = jdbcTemplate.getDataSource().getConnection();

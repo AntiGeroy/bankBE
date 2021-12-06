@@ -13,6 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.Types;
 import java.util.List;
 
+/**
+ * Třída má na starosti přístup k databázi pro UserServis
+ */
+
 @Service
 public class UserDao {
 
@@ -25,12 +29,22 @@ public class UserDao {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Update pro změnu hesla uživatele
+     * @param request
+     */
+
     public void changePassword(NewPasswordRequest request){
         String query = "UPDATE UZIVATELE SET PASSWORD = ? " +
                 "WHERE ID = ?";
 
         jdbcTemplate.update(query, new Object[]{request.getPassword(), request.getId()});
     }
+
+    /**
+     * Update pro reset hesla uživatele
+     * @param user
+     */
 
     public void resetPassword(User user){
         String query = "UPDATE UZIVATELE SET PASSWORD = ? " +
@@ -41,6 +55,11 @@ public class UserDao {
         jdbcTemplate.update(query, new Object[]{password, user.getUserId()});
     }
 
+    /**
+     * Update pro blokování uživatele
+     * @param user
+     */
+
     public void blockUser(User user){
         String query = "UPDATE UZIVATELE SET AKTIVNI = 0 " +
                 "WHERE ID = ?";
@@ -48,12 +67,22 @@ public class UserDao {
         jdbcTemplate.update(query, new Object[]{user.getUserId()});
     }
 
+    /**
+     * Update pro odblokování uživatele
+     * @param user
+     */
+
     public void unblockUser(User user){
         String query = "UPDATE UZIVATELE SET AKTIVNI = 1 " +
                 "WHERE ID = ?";
 
         jdbcTemplate.update(query, new Object[]{user.getUserId()});
     }
+
+    /**
+     * Select pro výbér uživatele podle loginu
+     * @param login
+     */
 
     public User getUserByLogin(String login){
         String query = "SELECT * FROM UZIVATELE WHERE LOGIN like ?";
@@ -64,6 +93,11 @@ public class UserDao {
         return foundUsers.get(0);
     }
 
+    /**
+     * Select pro zpřístupnění uživatele
+     * @param user
+     */
+
     public User getUserById(Integer id){
         String query = "SELECT * FROM UDAJE_O_UZIVATELICH WHERE ID = ?";
         List<User> foundUsers  = jdbcTemplate.query(query, new Object[]{id}, User.getUserViewMapper());
@@ -72,6 +106,11 @@ public class UserDao {
         }
         return foundUsers.get(0);
     }
+
+    /**
+     * Insert pro vytvoření nového admina
+     * @param request
+     */
 
     public void createAdmin(NewUserRequest request){
         String query = "INSERT INTO UZIVATELE (LOGIN, PASSWORD, ROLE, REGISTERED_BY, CLIENT_ID) " +

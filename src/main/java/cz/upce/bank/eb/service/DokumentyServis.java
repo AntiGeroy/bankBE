@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Třída, která se stárá o provádění logiky spojenou s dokumenty
+ */
+
 @Service
 public class DokumentyServis {
 
@@ -15,6 +19,14 @@ public class DokumentyServis {
     public Dokumenty getDocumentContentById(Integer id){
         return dokumentyDao.getDokumentContenttById(id);
     }
+
+    /**
+     * Uložení nového dokumentu
+     * @param name
+     * @param clientIdString
+     * @param typeIdString
+     * @param file
+     */
 
     @Transactional(rollbackFor = Exception.class)
     public void saveNewDocument(String name, String clientIdString, String typeIdString, byte[] file){

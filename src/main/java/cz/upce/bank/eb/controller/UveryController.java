@@ -17,9 +17,22 @@ public class UveryController {
     @Autowired
     UveryService uveryService;
 
+    /**
+     * Zpřísupnění údajů o úvěru
+     * @param creditId
+     * @return
+     */
+
     @GetMapping("/{creditId}")
     public @ResponseBody
     Uvery getUver(@PathVariable("creditId") Integer creditId) { return uveryService.getUver(creditId); }
+
+    /**
+     * Editace úvěru
+     * @param uverId
+     * @param uverData
+     * @return
+     */
 
     @PutMapping("/{creditId}")
     public @ResponseBody
@@ -27,10 +40,21 @@ public class UveryController {
         return uveryService.updateUver(uverId, uverData);
     }
 
+    /**
+     * Pŕidání nového úvěru
+     * @param request
+     */
+
     @PostMapping("/novy")
     public void newCredit(@RequestBody NewCreditRequest request){
         uveryService.newCredit(request);
     }
+
+    /**
+     * Splácení úvěru
+     * @param request
+     * @throws SQLException
+     */
 
     @PostMapping(value="/platba")
     public void payUver(@RequestBody PayCreditRequest request) throws SQLException {

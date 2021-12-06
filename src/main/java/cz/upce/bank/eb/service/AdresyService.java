@@ -9,11 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 
+/**
+ * Třída, která se stárá o provádění logiky spojenou s adresami
+ */
+
 @Service
 public class AdresyService {
 
     @Autowired
     private AdresyDao adresyDao;
+
+    /**
+     * Vytvoření nové adresy
+     * @param adresy
+     * @return
+     * @throws SQLException
+     */
 
     @Transactional(rollbackFor = Exception.class)
     public Adresy createNewAddress(Adresy adresy) throws SQLException {
@@ -22,10 +33,22 @@ public class AdresyService {
         return adresy;
     }
 
+    /**
+     * Zpřístupnění adresy
+     * @param addressId
+     * @return
+     */
 
     public Adresy getAddressById(Integer addressId){
         return adresyDao.getAddressById(addressId);
     }
+
+    /**
+     * Editace adresy
+     * @param addressId
+     * @param addressData
+     * @return
+     */
 
     public Adresy updateAddress(Integer addressId, Adresy addressData) {
         return adresyDao.updateAddress(addressId, addressData);

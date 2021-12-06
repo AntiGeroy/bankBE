@@ -18,6 +18,11 @@ import java.io.IOException;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
+/**
+ * Třída slouží pro ziskání úživatelských údajů z JWT tokenů
+ * Token je předávan z frontendu pro identifikaci a autorizaci uživatelů
+ */
+
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
@@ -28,6 +33,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.jwtTokenUtil = jwtTokenUtil;
         this.userService = userService;
     }
+
+    /**
+     * Nastavení Spring Security pro použití třídy JwtTokenUtil pro autorizaci uživatele
+     */
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -20,6 +20,10 @@ import org.springframework.web.filter.CorsFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Třída slouží pro nastavení Spring Security
+ */
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -67,14 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Set permissions on endpoints
         http.authorizeRequests()
-                // Our public endpoints
-                /*.antMatchers("/api/public/**").permitAll()*/
                 .antMatchers("/api/**").permitAll()
-                /*.antMatchers(HttpMethod.GET, "/api/ucty/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/ucty/**").permitAll()*/
-                /*.antMatchers(HttpMethod.GET, "/api/book/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/book/search").permitAll()*/
-                // Our private endpoints
                 .anyRequest().authenticated();
 
         // Add JWT token filter
@@ -102,19 +99,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    // Used by spring security if CORS is enabled.
-   /* @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {

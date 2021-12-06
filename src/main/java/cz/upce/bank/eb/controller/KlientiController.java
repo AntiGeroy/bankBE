@@ -9,12 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Kontroler pro požadavky spojené s klientem bankovnictví
+ */
+
 @RestController
 @RequestMapping("/api/klienti")
 public class KlientiController {
 
     @Autowired
     private KlientiService klientiService;
+
+    /**
+     * Ziskaní údaju o klientě
+     * @param clientId
+     * @return
+     */
 
     @GetMapping("/{clientId}")
     public @ResponseBody
@@ -32,17 +42,36 @@ public class KlientiController {
         }
     }
 
+    /**
+     * Ziskání seznamu klientů, které bydly na jedné adrese
+     * @param addressId
+     * @return Pole klientu na adrese
+     */
+
     @GetMapping("/batch/{addressId}")
     public @ResponseBody
     KlientiAdresy[] getClientsOnAddress(@PathVariable("addressId") Integer addressId) {
         return klientiService.getClientsOnAddress(addressId);
     }
 
+    /**
+     * Změna údajů o adrese kliemta
+     * @param clientAddress
+     * @return
+     */
+
     @PutMapping("/addressState")
     public @ResponseBody
     KlientiAdresy updateClientAddressState(@RequestBody KlientiAdresy clientAddress){
         return klientiService.updateClientAddressState(clientAddress);
     }
+
+    /**
+     * Změna údajů klienta
+     * @param clientId
+     * @param clientData
+     * @return
+     */
 
     @PutMapping("/{clientId}")
     public @ResponseBody

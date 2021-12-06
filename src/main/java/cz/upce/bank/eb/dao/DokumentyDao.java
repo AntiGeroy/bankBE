@@ -11,10 +11,20 @@ import org.springframework.stereotype.Service;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+/**
+ * Třída má na starosti přístup k databázi pro DokumentyServis
+ */
+
 @Service
 public class DokumentyDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Zpřístupnění obsahu dokumentu podle id
+     * @param clientId
+     * @return
+     */
 
     public Dokumenty getDokumentContenttById(Integer clientId){
         String query = "SELECT * FROM UDAJE_O_DOKUMENTECH WHERE ID = ?";
@@ -24,6 +34,14 @@ public class DokumentyDao {
         }
         return foundClients.get(0);
     }
+
+    /**
+     * Insert pro vložení nového dokumentu
+     * @param name
+     * @param clientId
+     * @param typeId
+     * @param file
+     */
 
     public void saveNewDocument(String name, Integer clientId, Integer typeId,  byte[] file){
         String sql = "INSERT INTO DOKUMENTY (OBSAH, NAZEV, KLIENT_ID, TYP_DOKUMENTU_ID)" +

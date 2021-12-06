@@ -7,12 +7,22 @@ import cz.upce.bank.eb.service.UctyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Kontroler pro požadavky spojené s účty
+ */
+
 @RestController
 @RequestMapping("/api/ucty")
 public class UctyController {
 
     @Autowired
     private UctyService uctyService;
+
+    /**
+     *
+     * @param accountId
+     * @return
+     */
 
     @GetMapping("/{accountId}")
     public @ResponseBody

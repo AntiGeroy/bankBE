@@ -14,11 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.*;
 import java.util.List;
 
+/**
+ * Třída má na starosti přístup k databázi pro AdresyServis
+ */
+
 @Service
 public class AdresyDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Volání uložené procedury VLOZ_ADRESU
+     * Procedura je v databázi
+     * @param adresy
+     * @return
+     * @throws SQLException
+     */
 
     public int createAddressAndBindToClient(Adresy adresy) throws SQLException {
         Connection connection = jdbcTemplate.getDataSource().getConnection();
@@ -36,51 +48,11 @@ public class AdresyDao {
         return result;
     }
 
-    public Adresy createNewAddress(Adresy adresy){
-        String sql = "INSERT INTO ADRESY (CISLO_POPISNE, ULICE, MESTO, PSC, KOD_ZEME)" +
-                " VALUES (?, ?, ?, ?, ?)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection
-                    .prepareStatement(sql, new String[] { "ID" });
-            ps.setString(1, adresy.getHouseNumber());
-            ps.setString(2, adresy.getStreet());
-            ps.setString(3, adresy.getTown());
-            ps.setString(4, adresy.getPostalCode());
-            ps.setString(5, adresy.getCountryCode());
-            return ps;
-        }, keyHolder);
-
-        int generatedId = keyHolder.getKey().intValue();
-        adresy.setAddressId(generatedId);
-        return adresy;
-    }
-
-    public void bindAddressToClient(Adresy adresy) {
-        String sql = "INSERT INTO KLIENTI_ADRESY (KLIENTI_ID, ADRESY_ID)" +
-                "VALUES (?, ?)";
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection
-                    .prepareStatement(sql);
-            ps.setInt(1, adresy.getClientId());
-            ps.setInt(2, adresy.getAddressId());
-            return ps;
-        });
-    }
-
-    public Adresy getAddressByFields(Adresy adresy){
-        String query = "SELECT * FROM ADRESY WHERE CISLO_POPISNE = ? AND ULICE = ? AND MESTO = ? AND PSC = ? AND KOD_ZEME = ?";
-        String cp = adresy.getHouseNumber();
-        String ul = adresy.getStreet();
-        String me = adresy.getTown();
-        String ps = adresy.getPostalCode();
-        String kz = adresy.getCountryCode();
-        List<Adresy> foundAddresses = jdbcTemplate.query(query, new Object[]{cp, ul, me, ps, kz }, Adresy.getAdresyMapper());
-        if(foundAddresses.size() != 1) return null;
-        return foundAddresses.get(0);
-    }
+    /**
+     * Select pro vyhledávaní adresy podle id
+     * @param addressId
+     * @return
+     */
 
     public Adresy getAddressById(Integer addressId){
         String query = "SELECT * FROM ADRESY WHERE ID = ?";
@@ -91,6 +63,13 @@ public class AdresyDao {
         return foundAddresses.get(0);
     }
 
+    /**
+     * Změna údajů adresy
+     * @param addressId
+     * @param modifiedAddressData
+     * @return
+     */
+
     @Transactional(rollbackFor = Exception.class)
     public Adresy updateAddress(Integer addressId, Adresy modifiedAddressData) {
         String query = "UPDATE ADRESY SET CISLO_POPISNE = ?, ULICE = ?, MESTO = ?, PSC = ?, KOD_ZEME = ?\n" +
@@ -98,14 +77,5 @@ public class AdresyDao {
         jdbcTemplate.update(query,new Object[] {modifiedAddressData.getHouseNumber(), modifiedAddressData.getStreet(),
         modifiedAddressData.getTown(), modifiedAddressData.getPostalCode(), modifiedAddressData.getCountryCode(), modifiedAddressData.getAddressId()});
         return modifiedAddressData;
-    }
-
-    public boolean checkIfAddressIsBoundToClient(Adresy adresy) {
-        String query = "SELECT * FROM KLIENTI_ADRESY WHERE KLIENTI_ID = ? AND ADRESY_ID = ?";
-        List<Adresy> foundBounds = jdbcTemplate.query(query, new Object[]{adresy.getClientId(), adresy.getAddressId()}, adresy.getKlientyAdresyMapper());
-        if(foundBounds.size() < 1) return false;
-        else if(foundBounds.size() > 1) throw new DaoException("Found multiple bounds of address with id " + adresy.getAddressId() +
-                "to client with id " + adresy.getClientId());
-        return true;
     }
 }

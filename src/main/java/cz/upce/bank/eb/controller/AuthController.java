@@ -14,6 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Kontroler pro ověřování a vytváření nových uživatelů
+ */
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -30,6 +34,12 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Převod údaju na formát, který bude odeslan na frontend
+     * @param user
+     * @return
+     */
+
     private static UserResponse userToUserResponse(User user){
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getUserId());
@@ -42,11 +52,23 @@ public class AuthController {
         return userResponse;
     }
 
+    /**
+     * Změna hesla
+     * @param request údaje o novém hesle
+     * @throws Exception
+     */
+
     @PostMapping("changePassword")
     public void changePassword(@RequestBody NewPasswordRequest request) throws Exception {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         userService.changePassword(request);
     }
+
+    /**
+     * Vytvoření nového uživatele
+     * @param request
+     * @throws Exception
+     */
 
     @PostMapping("new")
     public void createNewAdmin(@RequestBody NewUserRequest request) throws Exception {
@@ -61,6 +83,12 @@ public class AuthController {
         userService.createAdminUser(request);
 
     }
+
+    /**
+     * Reset hesla
+     * @param userId
+     * @throws Exception
+     */
 
     @GetMapping("/reset/{userId}")
     public void resetPassword(@PathVariable Integer userId) throws Exception{
@@ -79,6 +107,12 @@ public class AuthController {
 
     }
 
+    /**
+     * Blokovaní uživatele
+     * @param userId
+     * @throws Exception
+     */
+
     @GetMapping("/blockUser/{userId}")
     public void blockUser(@PathVariable Integer userId) throws Exception{
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,6 +129,12 @@ public class AuthController {
         }
 
     }
+
+    /**
+     * Odblokovaní uživatele
+     * @param userId
+     * @throws Exception
+     */
 
     @GetMapping("/unblockUser/{userId}")
     public void unblockUser(@PathVariable Integer userId) throws Exception{
@@ -113,6 +153,13 @@ public class AuthController {
 
     }
 
+    /**
+     * Ziskaní údaju o uživateli
+     * @param userId
+     * @return POJO s údaji
+     * @throws Exception
+     */
+
     @GetMapping("getUser/{userId}")
     public ResponseEntity<UserResponse> getUserDataById(@PathVariable Integer userId) throws Exception{
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -126,6 +173,12 @@ public class AuthController {
         return ResponseEntity.ok()
                 .body(response);
     }
+
+    /**
+     * Přihlášení
+     * @param request
+     * @return
+     */
 
     @PostMapping("login")
     public ResponseEntity<UserResponse> login(@RequestBody AuthRequest request) {

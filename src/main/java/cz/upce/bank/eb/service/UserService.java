@@ -13,11 +13,20 @@ import org.springframework.stereotype.Service;
 
 import static java.lang.String.format;
 
+/**
+ * Třída, která se stárá o provádění logiky spojenou s uživateli
+ */
+
 @Service
 public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    /**
+     * Změna hesla
+     * @param request
+     */
 
     public void changePassword(NewPasswordRequest request){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -27,6 +36,12 @@ public class UserService {
 
         userDao.changePassword(request);
     }
+
+    /**
+     * Zpřístupněni uživatele podle loginu
+     * @param login
+     * @return
+     */
 
     public User getUserByLogin(String login){
         return userDao.getUserByLogin(login);
@@ -42,6 +57,11 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Reset hesla
+     * @param user
+     */
+
     public void resetPassword(User user){
         if (user.getRole() != UserRole.USER){
             throw new ServiceException("It's forbidden to reset passwords for admins");
@@ -49,6 +69,11 @@ public class UserService {
 
         userDao.resetPassword(user);
     }
+
+    /**
+     * Blokování uživatele
+     * @param user
+     */
 
     public void blockUser(User user){
         if (user.getRole() != UserRole.USER){
@@ -58,6 +83,11 @@ public class UserService {
         userDao.blockUser(user);
     }
 
+    /**
+     * Odblokování uživatele
+     * @param user
+     */
+
     public void unblockUser(User user){
         if (user.getRole() != UserRole.USER){
             throw new ServiceException("It's forbidden to unblock admins");
@@ -65,6 +95,12 @@ public class UserService {
 
         userDao.unblockUser(user);
     }
+
+    /**
+     * Zpřístupněni uživatele podle id
+     * @param id
+     * @return
+     */
 
     public User getUserDetailsById(Integer id){
         User user = userDao.getUserById(id);
@@ -75,6 +111,11 @@ public class UserService {
 
         return user;
     }
+
+    /**
+     * Vytvoření nového uživatele
+     * @param request
+     */
 
     public void createAdminUser(NewUserRequest request){
         userDao.createAdmin(request);

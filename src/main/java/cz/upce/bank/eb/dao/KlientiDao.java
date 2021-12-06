@@ -9,11 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Třída má na starosti přístup k databázi pro KlientiServis
+ */
+
 @Service
 public class KlientiDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Select pro zpřísupnění údajů o klientu podle id
+      * @param clientId
+     * @return
+     */
 
     public Klienti getClientById(Integer clientId){
         String query = "SELECT * FROM KLIENTI WHERE ID = ?";
@@ -23,6 +33,12 @@ public class KlientiDao {
         }
         return foundClients.get(0);
     }
+
+    /**
+     * Select pro získání údaje o klientech, které bydlí na určité adrese
+     * @param addressId
+     * @return
+     */
 
     public KlientiAdresy[] getClientsOnAddress(Integer addressId) {
         String query = "SELECT KLIENTI_ID, ADRESY_ID, JMENO, PRIJMENI, RODNE_CISLO, AKTIVNI FROM UDAJE_O_ADRESACH_A_KLIENTECH WHERE ADRESY_ID = ?";
@@ -34,6 +50,13 @@ public class KlientiDao {
         foundClients.toArray(ka);
         return ka;
     }
+
+    /**
+     * Update pro editaci údajů klienta
+     * @param clientId
+     * @param modifiedClientInfo
+     * @return
+     */
 
     @Transactional(rollbackFor = Exception.class)
     public Klienti updateClient(Integer clientId, Klienti modifiedClientInfo){
@@ -47,6 +70,12 @@ public class KlientiDao {
 
         return modifiedClientInfo;
     }
+
+    /**
+     * Update pro editaci údajů o klientach, kteří bydlí na jedné adrese
+     * @param clientAddress
+     * @return
+     */
 
     public KlientiAdresy updateClientAddressState(KlientiAdresy clientAddress) {
         String query = "UPDATE KLIENTI_ADRESY SET AKTIVNI = ? WHERE KLIENTI_ID = ? AND ADRESY_ID = ?";

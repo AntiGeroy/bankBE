@@ -12,11 +12,21 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Třída má na starosti přístup k databázi pro StatisticsServis
+ */
+
 @Service
 public class StatisticsDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    /**
+     * Volání uložene procedury UCET_STATS pro zpřístupnění statistik
+     * @return
+     * @throws SQLException
+     */
 
     public AccountStatistics getAccountStatistics() throws SQLException {
         AccountStatistics as = new AccountStatistics();
@@ -41,6 +51,12 @@ public class StatisticsDao {
         return as;
     }
 
+    /**
+     * Volání uložene procedury TOTAL_CAPITAL pro zpřístupnění statistik
+     * @return
+     * @throws SQLException
+     */
+
     public int getTotalBankCapital() throws SQLException {
         int total = 0;
         try(Connection connection = jdbcTemplate.getDataSource().getConnection()) {
@@ -52,6 +68,12 @@ public class StatisticsDao {
         }
         return total;
     }
+
+    /**
+     * Volání uložene procedury CALCULATE_PROFIT_IN_PERIOD pro zpřístupnění statistik
+     * @return
+     * @throws SQLException
+     */
 
     public int getProfitInPeriod(String dateFrom, String dateTo) {
         int profit = 0;
