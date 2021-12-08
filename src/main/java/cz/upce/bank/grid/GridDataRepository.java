@@ -64,6 +64,8 @@ public class GridDataRepository implements GridDataDao {
         classTableMap.put(DatabaseObject.class, "ALL_USED_OBJECTS");
         rowMappers.put(DatabaseObject.class, DatabaseObject.getDatabaseObjectMapper());
 
+        classTableMap.put(Recommendation.class, "PRANI");
+        rowMappers.put(Recommendation.class, Recommendation.getRecommendationMapper());
     }
 
     @Override
