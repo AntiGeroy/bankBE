@@ -14,11 +14,19 @@ public class RecommendationsDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * Insert pro vložení nového přání
+     * @param newRecommendation
+     */
     public void createNewRecommendation(Recommendation newRecommendation) {
         String query = "INSERT INTO PRANI (TEMA, ZPRAVA) VALUES (?, ?)";
         jdbcTemplate.update(query, new Object[] {newRecommendation.getSubject(), newRecommendation.getText()});
     }
 
+    /**
+     * Select pro zpřístupnění všech přání
+     * @return
+     */
     public Recommendation[] getAllRecommendations() {
         String query = "SELECT * FROM PRANI";
         List<Recommendation> recommendations = jdbcTemplate.query(query, new Object[]{},Recommendation.getRecommendationMapper());
@@ -30,6 +38,9 @@ public class RecommendationsDao {
         return recommendationsArr;
     }
 
+    /**
+     * Update pro zamitnutí přání podle id
+     */
     public void declineRecommendations(IdRequest selectedIds) {
         String query = "UPDATE PRANI SET STATUS = ? WHERE ID = ?";
         for (int i = 0; i < selectedIds.getIds().length; i++){
@@ -37,6 +48,9 @@ public class RecommendationsDao {
         }
     }
 
+    /**
+     * Update pro potvrzení přání podle id
+     */
     public void approveRecommendations(IdRequest selectedIds) {
         String query = "UPDATE PRANI SET STATUS = ? WHERE ID = ?";
         for (int i = 0; i < selectedIds.getIds().length; i++){

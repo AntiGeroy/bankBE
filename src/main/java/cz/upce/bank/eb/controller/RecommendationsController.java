@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
+/**
+ * Kontroler pro požadavky spojené s přání
+ */
+
+
 @RestController
 @RequestMapping("/api/prani")
 @CrossOrigin(origins = "*")
