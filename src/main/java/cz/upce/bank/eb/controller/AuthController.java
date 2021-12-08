@@ -48,7 +48,7 @@ public class AuthController {
         userResponse.setRole(user.getRole());
         userResponse.setRegisteredByLogin(user.getRegisteredByLogin());
         userResponse.setActive(user.getActive());
-
+        userResponse.setImage(user.getImage());
         return userResponse;
     }
 
@@ -62,6 +62,17 @@ public class AuthController {
     public void changePassword(@RequestBody NewPasswordRequest request) throws Exception {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         userService.changePassword(request);
+    }
+
+    /**
+     * Změna obrazku uživatele
+     * @param request zapouzdřuje id uživatele a nový obrazek jako řetezec ve formátu BASE64
+     * @throws Exception
+     */
+
+    @PostMapping("changeImage")
+    public void uploadImage(@RequestBody ImageUploadRequest request) throws Exception {
+        userService.changeImage(request);
     }
 
     /**

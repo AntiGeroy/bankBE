@@ -1,10 +1,12 @@
 package cz.upce.bank.eb.entity;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+import java.io.*;
+import java.sql.Clob;
 import java.util.Collection;
 
 public class User implements UserDetails, Serializable {
@@ -17,6 +19,7 @@ public class User implements UserDetails, Serializable {
     private int clientId;
     private String registeredByLogin;
     private String active;
+    private String image;
 
     public static RowMapper<User> getUserMapper(){
         return (rs, rowNum) -> {
@@ -43,6 +46,10 @@ public class User implements UserDetails, Serializable {
             user.setClientId(rs.getInt("CLIENT_ID"));
             user.setRegisteredByLogin(rs.getString("REGISTER_BY_LOGIN"));
             user.setActive(String.valueOf(rs.getInt("AKTIVNI")));
+            Clob image = rs.getClob("OBRAZEK");
+            if (image != null){
+                user.setImage(image.getSubString(1, (int) image.length()));
+            }
             return user;
         };
     }
@@ -139,5 +146,13 @@ public class User implements UserDetails, Serializable {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

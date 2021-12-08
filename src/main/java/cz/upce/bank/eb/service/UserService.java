@@ -2,14 +2,12 @@ package cz.upce.bank.eb.service;
 
 import cz.upce.bank.eb.controller.AccessProhibitedException;
 import cz.upce.bank.eb.dao.UserDao;
-import cz.upce.bank.eb.entity.NewPasswordRequest;
-import cz.upce.bank.eb.entity.NewUserRequest;
-import cz.upce.bank.eb.entity.User;
-import cz.upce.bank.eb.entity.UserRole;
+import cz.upce.bank.eb.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.String.format;
 
@@ -22,6 +20,16 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    /**
+     * Změna obrázku
+     * @param request
+     */
+
+    @Transactional(rollbackFor = Exception.class)
+    public void changeImage(ImageUploadRequest request){
+        userDao.changeImage(request);
+    }
 
     /**
      * Změna hesla

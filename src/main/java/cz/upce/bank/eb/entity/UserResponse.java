@@ -9,6 +9,7 @@ public class UserResponse {
     private String registeredByLogin;
     private String jwt;
     private String active;
+    private String image;
 
     public Integer getId() {
         return id;
@@ -64,5 +65,13 @@ public class UserResponse {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

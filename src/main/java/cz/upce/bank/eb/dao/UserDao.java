@@ -1,5 +1,6 @@
 package cz.upce.bank.eb.dao;
 
+import cz.upce.bank.eb.entity.ImageUploadRequest;
 import cz.upce.bank.eb.entity.NewPasswordRequest;
 import cz.upce.bank.eb.entity.NewUserRequest;
 import cz.upce.bank.eb.entity.User;
@@ -27,6 +28,18 @@ public class UserDao {
     public UserDao(JdbcTemplate jdbcTemplate,@Lazy PasswordEncoder passwordEncoder) {
         this.jdbcTemplate = jdbcTemplate;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    /**
+     * Update pro změnu obrázku
+     * @param request
+     */
+
+    public void changeImage(ImageUploadRequest request){
+        String query = "UPDATE UZIVATELE SET OBRAZEK = ? " +
+                "WHERE ID = ?";
+
+        jdbcTemplate.update(query, new Object[]{request.getImage(), request.getUserId()});
     }
 
     /**
